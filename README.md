@@ -1,6 +1,6 @@
 # UssdDecision
 [![Packagist Version](https://img.shields.io/packagist/v/cybersai/ussd-decision?style=for-the-badge)](https://packagist.org/packages/cybersai/ussd-decision)
-[![Travis (.org)](https://img.shields.io/travis/cybersai/ussd-decision?style=for-the-badge)](https://travis-ci.org/cybersai/ussd-decision)
+[![Travis (.com)](https://img.shields.io/travis/cybersai/ussd-decision?style=for-the-badge)](https://travis-ci.com/cybersai/ussd-decision)
 [![GitHub repo size](https://img.shields.io/github/repo-size/cybersai/ussd-decision?style=for-the-badge)](https://github.com/CyberSai/ussd-decision)
 ![GitHub](https://img.shields.io/github/license/cybersai/ussd-decision?style=for-the-badge)
 
