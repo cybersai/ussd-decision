@@ -19,7 +19,7 @@ echo UssdDecision::using('0241122331') // Argument to use for decision making
     ->length(6, 'Too short') // Return this is the argument length is 6
     ->phoneNumber('It a phone number') // Return this is the argument is a valid phone number
     ->any('Did not match any') // Just return this
-    ->outcome(); // Given the outcome of the decision chain
+    ->outcome(); // Give the outcome of the decision chain
 
 ```
 ```text
