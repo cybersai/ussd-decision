@@ -43,10 +43,6 @@ echo UssdDecision::input('0241122331')
     ->outcome();
 
 ```
-```text
-// Output
-It a phone number
-```
 
 ## Installation
 `composer require cybersai/ussd-decision`
