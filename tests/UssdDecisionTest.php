@@ -11,56 +11,56 @@ class UssdDecisionTest extends TestCase
 {
     public function testCanBeCreatedWithAnArgument()
     {
-        $this->assertInstanceOf(UssdDecision::class, UssdDecision::using('argument'));
+        $this->assertInstanceOf(UssdDecision::class, UssdDecision::input('argument'));
     }
 
     public function testReturnsTheOutcome()
     {
-        $this->assertNull(UssdDecision::using('argument')->outcome());
+        $this->assertNull(UssdDecision::input('argument')->outcome());
     }
 
-    public function testCanCompareArgumentUsingEqual()
+    public function testCanCompareArgumentinputEqual()
     {
-        $this->assertEquals('True', UssdDecision::using(1)->equal('1', 'True')
+        $this->assertEquals('True', UssdDecision::input(1)->isEqual('1', 'True')
             ->outcome());
     }
 
-    public function testCanCompareArgumentUsingStrictEqual()
+    public function testCanCompareArgumentinputStrictEqual()
     {
-        $this->assertNull(UssdDecision::using(1)
-            ->equal('1', 'True', true)->outcome());
+        $this->assertNull(UssdDecision::input(1)
+            ->isEqual('1', 'True', true)->outcome());
     }
 
-    public function testCanCompareArgumentUsingNumeric()
+    public function testCanCompareArgumentinputNumeric()
     {
-        $this->assertEquals('True', UssdDecision::using('1')->numeric('True')->outcome());
+        $this->assertEquals('True', UssdDecision::input('1')->numeric('True')->outcome());
     }
 
-    public function testCanCompareArgumentUsingInteger()
+    public function testCanCompareArgumentinputInteger()
     {
-        $this->assertEquals('True', UssdDecision::using(1)->integer('True')->outcome());
+        $this->assertEquals('True', UssdDecision::input(1)->isInteger('True')->outcome());
     }
 
-    public function testCanCompareArgumentUsingAmount()
+    public function testCanCompareArgumentinputAmount()
     {
-        $this->assertEquals('True', UssdDecision::using(11.2)->amount('True')->outcome());
+        $this->assertEquals('True', UssdDecision::input(11.2)->amount('True')->outcome());
     }
 
-    public function testCanCompareArgumentUsingLength()
+    public function testCanCompareArgumentinputLength()
     {
-        $this->assertEquals('True', UssdDecision::using('one')->length(3, 'True')
+        $this->assertEquals('True', UssdDecision::input('one')->length(3, 'True')
             ->outcome());
     }
 
-    public function testCanCompareArgumentUsingPhoneNumber()
+    public function testCanCompareArgumentinputPhoneNumber()
     {
-        $this->assertEquals('True', UssdDecision::using('0241212123')->phoneNumber('True')
+        $this->assertEquals('True', UssdDecision::input('0241212123')->isPhoneNumber('True')
             ->outcome());
     }
 
     public function testCanUseYourCustomCondition()
     {
-        $this->assertEquals('Custom', UssdDecision::using(['active' => true])
+        $this->assertEquals('Custom', UssdDecision::input(['active' => true])
             ->custom(function ($argument)  {
                 return $argument['active'];
             }, 'Custom')->outcome());
@@ -68,29 +68,29 @@ class UssdDecisionTest extends TestCase
 
     public function testCanCompareArgumentBetweenTwoNumbers()
     {
-        $this->assertEquals('True', UssdDecision::using(3)->between(1, 10, 'True')->outcome());
+        $this->assertEquals('True', UssdDecision::input(3)->between(1, 10, 'True')->outcome());
     }
 
     public function testCanUseAnyWildCards()
     {
-        $this->assertEquals('True', UssdDecision::using('5')->any('True')->outcome());
+        $this->assertEquals('True', UssdDecision::input('5')->default('True')->outcome());
     }
 
     public function testDecisionCanBeChain()
     {
-        $this->assertEquals('True', UssdDecision::using('45')
-            ->phoneNumber('Phone')->any('True')->outcome());
+        $this->assertEquals('True', UssdDecision::input('45')
+            ->isPhoneNumber('Phone')->default('True')->outcome());
     }
 
     public function testItIgnoresFollowingDecisionWhenConditionIsMet()
     {
-        $this->assertEquals('First', UssdDecision::using('1234')
-            ->numeric('First')->any('Second')->outcome());
+        $this->assertEquals('First', UssdDecision::input('1234')
+            ->numeric('First')->default('Second')->outcome());
     }
 
     public function testItReturnsNullWhenNoConditionIsMet()
     {
-        $this->assertNull(UssdDecision::using('super')->numeric('Numeric')
-            ->phoneNumber('Phone')->equal('ama', 'True')->outcome());
+        $this->assertNull(UssdDecision::input('super')->numeric('Numeric')
+            ->isPhoneNumber('Phone')->isEqual('ama', 'True')->outcome());
     }
 }

@@ -12,14 +12,35 @@ include 'vendor/autoload.php';
 
 use Cybersai\UssdDecision\UssdDecision;
 
-echo UssdDecision::using('0241122331') // Argument to use for decision making
-    ->integer('It an integer') // Return this is the argument is an integer
-    ->equal('0241122442', 'It my Number') // Return this is the argument is equal to the parameter given
-    ->in(['05451111111', '05452222222'], 'It a schools line') // Return this is the argument is array provider
-    ->length(6, 'Too short') // Return this is the argument length is 6
-    ->phoneNumber('It a phone number') // Return this is the argument is a valid phone number
-    ->any('Did not match any') // Just return this
-    ->outcome(); // Give the outcome of the decision chain
+// if input is an integer
+echo UssdDecision::input(0)
+    ->isInteger('Input is an integer')
+    ->default('No match')
+    ->outcome();
+
+// if input is equal to value
+echo UssdDecision::input('0241122331')
+    ->isEqual('0241122331', 'Input is equal to value')
+    ->default('Not a match')
+    ->outcome();
+
+// if input exist in array
+echo UssdDecision::input('0241122331')
+    ->in(['0241122331', '05452222222'], 'Input exist in array')
+    ->default('Not a match')
+    ->outcome();
+
+// if length is equal to value length
+echo UssdDecision::input('024111')
+    ->length(6, 'Input length is equal to value length')
+    ->default('Not a match')
+    ->outcome();
+
+// if input is a phone number
+echo UssdDecision::input('0241122331')
+    ->isPhoneNumber('Input is a phone number')
+    ->default('Not a match')
+    ->outcome();
 
 ```
 ```text

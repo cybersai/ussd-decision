@@ -1,15 +1,11 @@
 <?php
 
-
 namespace Cybersai\UssdDecision;
-
 
 class UssdDecision
 {
     protected $decided;
-
     protected $argument;
-
     protected $output;
 
     private function __construct($argument = null)
@@ -21,7 +17,6 @@ class UssdDecision
 
     private function guardAgainstReDeciding()
     {
-
         return !$this->decided;
     }
 
@@ -41,7 +36,7 @@ class UssdDecision
         return $this;
     }
 
-    public static function using($argument)
+    public static function input($argument)
     {
         return new self($argument);
     }
@@ -51,7 +46,7 @@ class UssdDecision
         return $this->output;
     }
 
-    public function equal($argument, $output, $strict = false)
+    public function isEqual($argument, $output, $strict = false)
     {
         return $this->setOutputForCondition(function () use ($argument, $strict) {
             if ($strict) {
@@ -68,7 +63,7 @@ class UssdDecision
         }, $output);
     }
 
-    public function integer($output)
+    public function isInteger($output)
     {
         return $this->setOutputForCondition(function () {
             return is_integer($this->argument);
@@ -89,7 +84,7 @@ class UssdDecision
         }, $output);
     }
 
-    public function phoneNumber($output)
+    public function isPhoneNumber($output)
     {
         return $this->setOutputForCondition(function () {
             return preg_match("/^[0][0-9]{9}$/", $this->argument);
@@ -106,7 +101,7 @@ class UssdDecision
     public function in($array, $output, $strict = false)
     {
         return $this->setOutputForCondition(function () use ($array, $strict) {
-            return in_array($array, $this->argument, $strict);
+            return in_array($this->argument, $array, $strict);
         }, $output);
     }
 
@@ -116,7 +111,7 @@ class UssdDecision
         return $this->setOutputForCondition($func, $output);
     }
 
-    public function any($output)
+    public function default($output)
     {
         return $this->setOutputForCondition(function () {
             return true;
